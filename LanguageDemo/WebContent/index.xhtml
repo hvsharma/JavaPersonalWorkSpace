@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Your Title Here</title>
+</h:head>
+
+<h:body>
+	<h1 class="title">Check whether your language can be used with JSF or not!</h1><br/>
+
+	<h:form>
+  		<h:outputLabel value="Enter Language"></h:outputLabel>
+  		<h:inputText value="#{languageForm.language}"></h:inputText>
+  		<h:commandButton action="#{languageForm.checkLanguage}" value="Check!"></h:commandButton>
+	</h:form>
+
+</h:body>
+
+</html>

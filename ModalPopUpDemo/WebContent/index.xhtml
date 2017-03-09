@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<h:head>
+	<title>Your Title Here</title>
+	<link rel="stylesheet" type="text/css" href="css/styling.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<script language="javascript" type="text/javascript" src="js/jquery-1.4.2.js"></script>
+	<script language="javascript" type="text/javascript" src="js/jquery.tools_min.js"></script>
+	<script language="javascript" type="text/javascript" src="js/jquery.blockUI.js"></script>
+	<script language="javascript" type="text/javascript" src="js/jquery-ui.min.js"></script>
+		
+</h:head>
+
+<h:body>
+	<h1 class="title">Some Demo Stuff!</h1>
+
+	<h:form id="mainForm">
+	
+	
+		<h:panelGroup id="shippingOptionsRBList" layout="block">
+			<h:selectOneRadio id="selectShippingRadio" value="#{modalDemo.priorityShipping}">
+				<f:selectItem itemEscaped="false" itemValue="false" itemLabel="Normal Shipping" />
+				<f:selectItem itemEscaped="false" itemValue="true" itemLabel="Priority Shipping" />
+				<f:ajax execute="selectShippingRadio" render="agreePriorityShipPaymentPanel purchaseOrderNumberTextPanel"></f:ajax>
+			</h:selectOneRadio>
+		</h:panelGroup>		
+	
+  		<t:dataTable value="#{modalDemo.suppliesList}" var="supplies" rowIndexVar="rowIndex">
+  			<t:column>
+  				<f:facet name="header">Product Code</f:facet>
+  				<h:outputText value="#{supplies.productCode}"/>
+  			</t:column>
+  			<t:column>
+  				<f:facet name="header">Order Num</f:facet>
+  				<h:outputText value="#{supplies.supplyOrderNum}"/>
+  			</t:column>
+  			<t:column>
+  				<f:facet name="header">Description</f:facet>
+  				<h:outputText value="#{supplies.productDescription}"/>
+  			</t:column>
+  			<t:column>
+  				<f:facet name="header">Some Dummy Value</f:facet>
+  				<h:outputText value="#{supplies.someDummyValue}"/>
+  			</t:column>
+  			<t:column>
+  				<f:facet name="header">Quantity</f:facet>
+  				<h:inputText value="#{supplies.quantity}"></h:inputText>
+  			</t:column>
+  			<t:column>
+  				<f:facet name="header">Action</f:facet>
+  				<h:commandButton id="modifyBtn" type="button" onclick="toggleButton(this)" />
+  				<h:commandButton id="removeBtn" type="button" onclick="toggleButton(this)" disabled="true" style="display:'none';" />
+  				<h:inputHidden value="#{supplies.updateFlag}"></h:inputHidden>
+  			</t:column>  		
+  		</t:dataTable>
+  		
+  		<h:panelGroup id="bottomOptionsPanel">
+			
+				<h:panelGroup id="agreeOutsideContractsPaymentPanel">
+					<h:panelGroup rendered="#{modalDemo.outsideItemsAdded}">
+						<div>
+							<h:selectBooleanCheckbox id="agreeOutsideContractsPaymentChkBox" value="#{modalDemo.agreeOutsideContractsPayment}" />
+							<h:outputLabel value="Gree for outside payment!" for="agreeOutsideContractsPaymentChkBox"></h:outputLabel>		
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+							
+				<h:panelGroup id="agreePriorityShipPaymentPanel" >
+					<h:panelGroup rendered="#{modalDemo.priorityShipping}">
+						<div>
+							<h:selectBooleanCheckbox id="agreePriorityShipPaymentChkBox" value="#{modalDemo.agreePriorityShipPayment}"  />
+							<h:outputLabel value="Agree for Priority Shipping" for="agreePriorityShipPaymentChkBox"></h:outputLabel>
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+							
+				
+				<h:panelGroup id="purchaseOrderNumberTextPanel">
+					<h:panelGroup rendered="#{(modalDemo.priorityShipping) or (modalDemo.outsideItemsAdded)}">
+						<div class='agreeChkBoxLabel' style="text-align: center;">
+							<h:outputText value="Enter Purchase order number if any -: " />
+							<h:inputText value="#{modalDemo.purchaseOrderNumberText}" />
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+			</h:panelGroup>
+  		
+  		<h:panelGroup id="nonContractOrdersTablePanel">
+	  		<t:dataTable id="nonContractOrdersTable" value="#{modalDemo.nonContractSuppliesOrders}" var="nonContractSuppliesOrder">
+	 			<t:column>
+	  				<h:outputText value="#{nonContractSuppliesOrder.productCode}"/>
+	  			</t:column>
+	  			<t:column>
+	  				<h:outputText value="#{nonContractSuppliesOrder.supplyOrderNum}"/>
+	  			</t:column>
+	  			<t:column>
+	  				<h:outputText value="#{nonContractSuppliesOrder.productDescription}"/>
+	  			</t:column>  				
+	  			<t:column>
+	  				<h:inputText value="#{nonContractSuppliesOrder.quantity}"></h:inputText>
+	  			</t:column>
+	  			<t:column>
+	  				<h:commandButton id="removeBtn" action="#{modalDemo.removeItemFromList(nonContractSuppliesOrder)}">
+	  					<f:ajax execute="nonContractOrdersTable" render="nonContractOrdersTablePanel"></f:ajax>
+	  				</h:commandButton>
+	  				<h:inputHidden value="#{nonContractSuppliesOrder.updateFlag}"></h:inputHidden>
+	  			</t:column>  
+	  		</t:dataTable>
+  		</h:panelGroup>
+  		<h:panelGroup class="modalContainerWrapper">
+	  		<div id="modalContainer">
+				<t:dataTable value="#{modalDemo.nonContractSuppliesList}" rowIndexVar="rowIndex" var="nonContractSupplies">
+			  		<t:column>
+		  				<f:facet name="header">Product Code</f:facet>
+		  				<h:outputText value="#{nonContractSupplies.productCode}"/>
+		  			</t:column>
+		  			<t:column>
+		  				<f:facet name="header">Order Num</f:facet>
+		  				<h:outputText value="#{nonContractSupplies.supplyOrderNum}"/>
+		  			</t:column>
+		  			<t:column>
+		  				<f:facet name="header">Description</f:facet>
+		  				<h:outputText value="#{nonContractSupplies.productDescription}"/>
+		  			</t:column>
+		  			<t:column>
+		  				<f:facet name="header">Add to Orders</f:facet>
+		  				<h:selectBooleanCheckbox value="#{nonContractSupplies.addedToOrder}">		  					
+		  				</h:selectBooleanCheckbox>
+		  			</t:column>
+		  		</t:dataTable>
+		  		<h:commandButton value="Add" action="#{modalDemo.addNonContractItemsToOrderList}">
+		  			<f:ajax render="@form" execute="@form" onevent="$('#modalContainer').dialog('close');"></f:ajax>
+		  		</h:commandButton>
+		  		<h:commandButton value="Cancel" onclick="$('#modalContainer').dialog('close'); return false;">	  			
+		  		</h:commandButton>	  			  		
+	  		</div>
+  		</h:panelGroup>
+  		<br/><br/>
+  		<h:commandButton type="button" styleClass="addMoreItemsBtn" value="Click to open Modal!"/>
+  		<br/><br/><br/>
+  		
+  		
+  		<h:commandButton action="#{modalDemo.submitForm}" value="Submit Form!"></h:commandButton>  		
+  		
+	</h:form>	
+	
+  		
+	
+	<script type="text/javascript">
+		$().ready(function(){
+			var modalDialog = $('#modalContainer').dialog({
+		        autoOpen: false,
+		        modal:true,
+		        width:800,
+		        resizable:false,
+		        draggable:false		        
+		    });
+			
+			modalDialog.parent().appendTo($('.modalContainerWrapper:first'));
+			
+			$('.addMoreItemsBtn').click(function(e){				
+				$('#modalContainer').dialog('open');
+			});
+		});
+	</script>
+	
+</h:body>
+
+</html>

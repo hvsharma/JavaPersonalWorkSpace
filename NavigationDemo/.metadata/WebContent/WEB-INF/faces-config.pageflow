@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14867963376041" configfile="/NavigationDemo/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf148679685754020" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf148679685754021" path="/a.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="b.xhtml" x="338" y="178" id="pf148679685754023" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf148679685754024" inlinks="pf148679685754021" path="/b.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="c.xhtml" x="554" y="178" id="pf148679685754028" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf148679685754029" inlinks="pf148679685754024" path="/c.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="victory.xhtml" x="770" y="178" id="pf148679685754030" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf148679685754029" path="/victory.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="562" id="pf148679911444734" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148679911444735" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="defeat.xhtml" x="338" y="562" id="pf148679911444736" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf148679911444735" path="defeat.xhtml"/>
+  <links id="pf148679685754021" target="pf148679685754023" source="pf148679685754020" outcome="1"/>
+  <links id="pf148679685754024" target="pf148679685754028" source="pf148679685754023" outcome="1"/>
+  <links id="pf148679685754029" target="pf148679685754030" source="pf148679685754028" outcome="1"/>
+  <links id="pf148679911444735" target="pf148679911444736" source="pf148679911444734" outcome="2"/>
+</pageflow:Pageflow>

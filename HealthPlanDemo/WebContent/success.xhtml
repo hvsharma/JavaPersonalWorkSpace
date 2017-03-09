@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>All Set!</title>
+</h:head>
+
+<h:body>
+	<h1 class="title">Registered!!</h1>
+	<table>
+		<thead>
+			<tr>
+				<td>Employee ID</td>
+				<td>Employee Name</td>
+				<td>Health Plan</td>
+				<td>Monthly Premium</td>
+				<td>Contact Number</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><h:outputText value="#{healthPlanRegistration.employeeID}"></h:outputText></td>
+				<td><h:outputText value="#{healthPlanRegistration.employeeName}"></h:outputText></td>
+				<td><h:outputText value="#{healthPlanRegistration.plan.planName}"></h:outputText></td>
+				<td><h:outputText value="#{healthPlanRegistration.plan.monthlyPremium}"></h:outputText></td>
+				<td><h:outputText value="#{healthPlanRegistration.plan.phoneNumber}"></h:outputText></td>
+			</tr>
+		</tbody>
+		
+	</table>
+</h:body>
+
+</html>

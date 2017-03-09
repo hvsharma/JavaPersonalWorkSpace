@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsf/core">
+
+<c:view locale="#{facesContext.externalContext.requestLocale}">
+<h:head>
+	<title>Internationalization Demo</title>
+	<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script language="javascript">
+    
+    function initDialog() {
+    	 $("#idOfDialogPlaceHolder").dialog({
+    	     modal: true,
+    	     buttons: {
+    	            SomeButton: function () {
+    	                $("#justAButton").click();
+    	            },
+    	            Close: function () {
+    	                $(this).dialog("close");
+    	            }
+    	     },
+    	 });
+    	}
+    
+    </script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+    
+</h:head>
+
+<h:body>
+	<h1 class="title">#{messages.title}</h1>
+
+	<h:form>
+		<h:outputLabel value="#{messages.enterName}" />
+  		<h:inputText value="#{mainController.name}" />
+  		<h:commandButton value="#{messages.submit}" action="#{mainController.submit}" />
+	</h:form>
+	<h:panelGroup id="idOfDialogPlaceHolder" style="display:none">
+            <h:form prependId="false">
+                <h:outputText value="Some Text"></h:outputText>
+                <h:commandButton id="justAButton" onclick="alert('wow')" style="display:none"></h:commandButton>
+            </h:form>
+        </h:panelGroup>
+        <h:form prependId="false">
+               <h:commandButton id="dialogClickBtn" value="Click to display dialog" onclick="initDialog(); return false;"></h:commandButton>
+        </h:form>
+</h:body>
+
+</c:view>
+</html>

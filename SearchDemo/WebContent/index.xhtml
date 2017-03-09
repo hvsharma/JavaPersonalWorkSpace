@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" >
+
+<h:head>
+	<title>Your Title Here</title>
+</h:head>
+
+<h:body>
+	<h1 class="title">Your Heading Here</h1>
+
+	<h:form>
+  		<h:outputLabel value="Enter Search String  -: " /><h:inputText required="true" value="#{searchController.searchString}"></h:inputText><br/>
+  		<h:outputLabel value="Choose Search Engine -: " />
+  		<h:selectOneMenu value="#{searchController.searchEngine}">
+  			<f:selectItems value="#{searchController.searchEngineList}"></f:selectItems>
+  		</h:selectOneMenu><br/>
+  		<h:commandButton value="Search" action="#{searchController.commenceSearch}"></h:commandButton>
+	</h:form>
+
+</h:body>
+
+</html>

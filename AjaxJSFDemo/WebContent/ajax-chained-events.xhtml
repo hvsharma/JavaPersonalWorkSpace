@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Ajax Chained Events</title>
+</h:head>
+
+<h:body>
+	<h1 class="title">Get the population!</h1>
+
+	<h:form>
+		
+		<h:outputLabel for="listBoxStates" value="Please select a state -: " />
+  		<h:selectOneMenu id="listBoxStates" value="#{stateAndCityController.state}">
+  			<f:selectItem itemLabel="--Choose State--"></f:selectItem>
+  			<f:selectItems value="#{stateAndCityController.statesList}"></f:selectItems>
+  			<f:ajax render="listBoxCities txtBoxPopulation" listener="#{stateAndCityController.populateCities}"></f:ajax>		
+  		</h:selectOneMenu>
+  		
+  		<br></br>
+  		<h:outputLabel for="listBoxCities" value="Please select a city -: " />
+  		<h:selectOneMenu id="listBoxCities" value="#{stateAndCityController.city}">
+  			<f:selectItem itemLabel="--Choose City--"></f:selectItem>
+  			<f:selectItems value="#{stateAndCityController.citiesList}" ></f:selectItems>
+  			<f:ajax render="txtBoxPopulation" listener="#{stateAndCityController.updatePopulation}"></f:ajax>	
+  		</h:selectOneMenu>
+  		
+  		<br></br>
+  		<h:outputLabel for="txtBoxPopulation" value="Population -: " />
+  		<h:outputText id="txtBoxPopulation" value="#{stateAndCityController.population}" />
+  		
+	</h:form>
+
+</h:body>
+
+</html>

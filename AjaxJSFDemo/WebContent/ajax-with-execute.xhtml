@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Ajax with Execute</title>
+</h:head>
+
+<h:body>
+	<h1 class="title">Random Number Generator</h1>
+	
+	<h2>Normal -: </h2>
+	
+	<h:form>
+		<h:outputText value="Enter Range -: " />
+		<h:inputText id="txtBoxRange" value="#{randomNumberControllerAjaxWithExecute.range}" />
+		<h:commandButton value="Randomize!" action="#{randomNumberControllerAjaxWithExecute.randomize}">
+			<f:ajax execute="txtBoxRange" render="txtNumber" ></f:ajax>
+		</h:commandButton>
+		<br/><br/>
+		<h:outputText id="txtNumber" value="#{randomNumberControllerAjaxWithExecute.number}" />
+	</h:form>
+	
+	<br/><br/>
+	<h2>With @form value in execute -: </h2>
+
+	<h:form>
+		<h:outputText value="Enter Range -: " />
+		<h:inputText id="txtBoxRange" value="#{randomNumberControllerAjaxWithExecute.range}" />
+		<h:commandButton value="Randomize!" action="#{randomNumberControllerAjaxWithExecute.randomize}">
+			<f:ajax execute="@form" render="txtNumber2" ></f:ajax>
+		</h:commandButton>
+		<br/><br/>
+		<h:outputText id="txtNumber2" value="#{randomNumberControllerAjaxWithExecute.number}" />
+	</h:form>
+	
+	
+		
+</h:body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Ajax Demo</title>
+		<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+		<noscript></noscript>
+		<script type="text/javascript" src="js/jquery.tools_min.js"></script>
+		<noscript></noscript>
+		<script language="javascript" type="text/javascript" src="js/jquery.simplemodal-1.4.4.js"></script>
+		<noscript></noscript>
+		<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
+		<noscript></noscript>
+		<script language="javascript" type="text/javascript" src="js/jquery.blockUI.js"></script>
+		<noscript></noscript>
+		<script language="javascript" type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<noscript></noscript>
+</h:head>
+
+<h:body>
+	<h1 class="title">Random Number Generator</h1>
+	
+	<h2>Random Number via Normal Call -: </h2>
+	
+	<h:form>
+  		<h:commandButton value="Randomize!" action="#{randomNumberController.randomize}"></h:commandButton><br/><br/>
+  		<h:outputText value="#{randomNumberController.number}"></h:outputText>
+	</h:form>
+	
+	<h2>Random Number via Ajax Call -: </h2>
+	
+	<h:form>
+  		<h:commandButton id="ajaxCommandBtn" value="Randomize!" action="#{randomNumberControllerAjax.randomize}">
+  			<f:ajax render="txtNumber"></f:ajax>
+  		</h:commandButton><br/><br/>
+  		<h:outputText id="txtNumber" value="#{randomNumberControllerAjax.number}"></h:outputText>
+  		
+		
+	</h:form>
+	
+	<img id="blockUIImage" src="images/loader.gif" style="display:none;" />
+	<script>
+  		$(document).ready();
+  		jsf.ajax.addOnEvent(function(data) {
+  	        var ajaxstatus = data.status; // Can be "begin", "complete" and "success"
+  	        
+  	        switch (ajaxstatus) {
+  	            case "begin": 
+  	              	$.blockUI(); 	        				 
+  	                break;
+
+  	            case "complete": // This is called right after ajax response is received.
+  	              	$.unblockUI();
+  	                break;
+
+  	            case "success": // This is called when ajax response is successfully processed.
+  	                // NOOP.
+  	                break;
+  	        }
+  	    });
+		</script>
+</h:body>
+
+</html>
