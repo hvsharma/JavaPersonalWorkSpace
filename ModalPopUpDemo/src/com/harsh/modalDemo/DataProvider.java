@@ -20,12 +20,13 @@ public class DataProvider
 	
 	public static List<NonContractSupplies> getAllNonContractSupplies()
 	{
-		List<NonContractSupplies> nonContractSuppliesList = new ArrayList<NonContractSupplies>();
+/*		List<NonContractSupplies> nonContractSuppliesList = new ArrayList<NonContractSupplies>();
+*/		List<NonContractSupplies> nonContractSuppliesList = null;
 		
-		nonContractSuppliesList.add(new NonContractSupplies("NU01", "TXDL8908", "Awesome Staple Pins!"));
+	/*	nonContractSuppliesList.add(new NonContractSupplies("NU01", "TXDL8908", "Awesome Staple Pins!"));
 		nonContractSuppliesList.add(new NonContractSupplies("NU03", "TXDL8909", "More Awesome Staple Pins!"));
 		nonContractSuppliesList.add(new NonContractSupplies("NU04", "TXDL8910", "The Most Awesome Staple Pins!"));
-		nonContractSuppliesList.add(new NonContractSupplies("NU05", "TXDL8911", "F*ing Awesome Staple Pins!"));
+		nonContractSuppliesList.add(new NonContractSupplies("NU05", "TXDL8911", "F*ing Awesome Staple Pins!"));*/
 		
 		return nonContractSuppliesList;
 	}
