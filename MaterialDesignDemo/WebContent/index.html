@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Material Design Demo</title>
+	<link rel="stylesheet" href="./resources/frameworks/material-design/css/material.min.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">	
+	<link rel="stylesheet" href="./resources/css/index.css">		
+</head>
+<body>
+	<h2>Material Design Demo!</h2>
+	<form action="#">
+		<table class="mdl-table">
+		<tr>
+			<td>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+					<label for="firstName" class="mdl-textfield__label">First Name</label>
+					<input id="firstName" name="firstName" class="mdl-textfield__input" type="text" pattern="^[a-zA-Z]{1,}[a-zA-Z ]{0,}$" />				
+					<span class="mdl-textfield__error">Only alphabets Mister!</span>
+				</div>	
+			</td>	
+		</tr>
+		<tr>
+			<td>		
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+					<label for="lastName" class="mdl-textfield__label">Last Name</label>
+					<input id="lastName" name="lastName"  class="mdl-textfield__input" type="text" />
+					<span class="mdl-textfield__error">Only alphabets Mister!</span>
+				</div>
+			</td>	
+		</tr>
+		<tr>
+			<td>				
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+					<label for="age" class="mdl-textfield__label">Age</label>
+					<input id="age" name="age" class="mdl-textfield__input" type="number" min="18" max="100" />
+					<span class="mdl-textfield__error">Age should be between [18-100]</span>
+				</div>	
+			</td>	
+		</tr>
+		<tr>
+			<td>			
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">	
+					<label for="rbOptionMale" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">Male
+						<input id="rbOptionMale" class="mdl-radio__button" type="radio" name="gender" checked="checked" 
+							value="male" />	
+					</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label for="rbOptionFemale" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">Female
+						<input id="rbOptionFemale" class="mdl-radio__button" type="radio" name="gender" 
+							value="female" />
+					</label>																									
+				</div>	
+			</td>	
+		</tr>
+		<tr>
+			<td>			
+				<div>
+					<input id="submitButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" 
+						type="submit" onclick='javascript:this.disabled="disabled";return true;'/>		
+				</div>
+			</td>	
+		</tr>
+		</table>
+	</form>		
+	<script type="text/javascript" src="./resources/frameworks/material-design/js/material.min.js"></script>
+</body>
+</html>
