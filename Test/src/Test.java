@@ -1,11 +1,29 @@
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Test
 {
 	public static void main(String[] args)
 	{
-		int a[] = new int[]{0,1,2,3,4,5,6};
-		
-		
+		List<Integer> list = Arrays.asList(1,2,3,7,5,6,9,8);
+		doStuff(list);	
 	}
+	
+	public static void doStuff(List<Integer> list){
+		System.out.println(list.stream()
+			.filter(e -> e > 3)
+			.filter(e -> (e % 2 == 0))
+			.map(e -> e*2)
+			.findFirst().get()
+		);
+	}
+	
+	
+	
+	
 }
