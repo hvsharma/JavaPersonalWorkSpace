@@ -2,12 +2,22 @@ package com.harsh.jwtexploration;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
@@ -33,7 +43,8 @@ public class Test {
 		User user = new User("2b680267-b529-402a-a968-f1b18ad45cd9", "Jude Adami", "jadami0@constantcontact.com", roles);
 		String token = generateJWTToken(user);
 		System.out.println(token);
-		createAuthenticationObjectFromToken(token);
+		Object obj = createAuthenticationObjectFromToken(token);
+		System.out.println(obj.toString());
 	}
 	
 	 private static String generateJWTToken(User user) throws Exception {
@@ -42,7 +53,14 @@ public class Test {
     	
     	try {
     		
-    		Algorithm algorithm = Algorithm.HMAC256(secret);
+    		byte[] keyBytes = Files.readAllBytes(Paths.get("D:/private_key.der"));
+    	    PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
+    		KeyFactory kf = KeyFactory.getInstance("RSA");
+    		RSAPrivateKey privateKey = (RSAPrivateKey) kf.generatePrivate(spec);
+    		
+    		
+    		
+    		Algorithm algorithm = Algorithm.RSA512(null, privateKey);
 			
 			ObjectMapper objectMapper = new ObjectMapper();
 			
@@ -78,8 +96,13 @@ public class Test {
     	
 	 }
 	 
-	 private static Object createAuthenticationObjectFromToken(String jwtToken) {     	          
+	 private static Object createAuthenticationObjectFromToken(String jwtToken) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {     	          
 	    	
+		 	byte[] keyBytes = Files.readAllBytes(Paths.get("D:/public_key.der"));
+ 			X509EncodedKeySpec spec2 = new X509EncodedKeySpec(keyBytes);
+ 			KeyFactory kf = KeyFactory.getInstance("RSA");
+		    RSAPublicKey publicKey = (RSAPublicKey) kf.generatePublic(spec2);
+		 
 	    	if(jwtToken == null) {
 	    		return null;
 	    	}
@@ -91,8 +114,10 @@ public class Test {
 	     	
 			try {
 				
-				decodedJwtToken = JWT.decode(jwtToken);
-				
+				Algorithm algorithm = Algorithm.RSA512(publicKey, null);
+				JWTVerifier verifier = JWT.require(algorithm).build();
+				decodedJwtToken = verifier.verify(jwtToken);
+				System.out.println(decodedJwtToken);
 			} catch (JWTDecodeException e1) {
 				
 				
